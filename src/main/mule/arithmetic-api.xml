@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="e245f7a2-9e03-4e53-8187-aa3b5904c53c" >
+		<http:listener-connection host="0.0.0.0" port="${http.port}" />
+	</http:listener-config>
+	<configuration-properties doc:name="Configuration properties" doc:id="04355415-eac0-4b49-947a-8f9efb2cfc51" file="myconfig.yaml" />
+	<flow name="arithmetic-apiFlow" doc:id="ba300e42-3639-4383-96ec-9a427caf75f7" >
+		<http:listener doc:name="Listener" doc:id="4af1c4a1-1c82-42ac-a990-38232407f5ad" config-ref="HTTP_Listener_config" path="/arithmetic"/>
+		<logger level="INFO" doc:name="Arithmetic" doc:id="0ab48134-b783-4fe4-8345-1bfde1a21bb8" message="-------Starting of Arithmetic API --------------"/>
+		<set-variable value="#[attributes.queryParams.num1]" doc:name="num1" doc:id="b6cf9c69-9aa7-4a57-a495-f290e113454c" variableName="num1"/>
+		<set-variable value="#[attributes.queryParams.num2]" doc:name="num2" doc:id="f623389f-78d4-4233-acd2-cb5e81431fd8" variableName="num2"/>
+		<ee:transform doc:name="Transform Message" doc:id="9fd357dc-12dc-4547-892e-5f5465f11615" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"message": p("log.message1"),
+	"message": p("log.message2"),
+	"Addition" : (vars.num1 as Number + vars.num2 as Number),
+	"Subtraction" : (vars.num1 as Number - vars.num2 as Number),
+	"Division" : (vars.num1 as Number / vars.num2 as Number),
+	"Multiplication" : (vars.num1 as Number * vars.num2 as Number)
+
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="db5a82cb-ac89-4142-8b89-f937d634d9f8" message="---------End of Arithmetic API--------"/>
+	</flow>
+</mule>

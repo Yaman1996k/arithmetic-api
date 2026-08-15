@@ -1,0 +1,14 @@
+http:
+  port: "8081"
+  
+log:
+  message1: "Welcome to CI/CD Pipeline"
+  message2: "Performing your Arithmetic Operations"
+  
+deployment:
+  app:
+     runtime: 4.4.0
+  region: us-east-2
+  workers:  1
+  workertype: MICRO
+  
