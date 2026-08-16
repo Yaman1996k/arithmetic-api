@@ -38,6 +38,7 @@
         <http.port>${http.port}</http.port>
         <mule.env>${env}</mule.env>
     </properties>
+<provider>${deployment.provider}</provider>
 </cloudhub2Deployment>
 </configuration>
 </plugin>
