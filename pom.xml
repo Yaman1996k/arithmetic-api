@@ -24,22 +24,21 @@
 <version>${mule.maven.plugin.version}</version>
 <extensions>true</extensions>
 <configuration>
-<cloudHubDeployment>
-<uri>https://anypoint.mulesoft.com</uri>
-<muleVersion>${deployment.app.runtime}</muleVersion>
-<username>${anypoint.username}</username>
-<password>${anypoint.password}</password>
-<applicationName>${project.artifcatID}</applicationName>
-<environment>${env}</environment>
-<region>${deployment.region}</region>
-<workers>${deployment.workers}</workers>
-<workerType>${deployment.workerType}</workerType>
-<ObjectStoreV2>true</ObjectStoreV2>
-<properties>
-<http.port>${http.port}</http.port>
-<mule.env>${env}</mule.env>
-</properties>
-</cloudHubDeployment>
+<cloudhub2Deployment>
+    <uri>https://anypoint.mulesoft.com</uri>
+    <muleVersion>${deployment.app.runtime}</muleVersion>
+    <username>${anypoint.username}</username>
+    <password>${anypoint.password}</password>
+    <applicationName>${project.artifactId}</applicationName>
+    <environment>${env}</environment>
+    <target>${deployment.target}</target>
+    <replicas>1</replicas>
+    <vCores>0.1</vCores>
+    <properties>
+        <http.port>${http.port}</http.port>
+        <mule.env>${env}</mule.env>
+    </properties>
+</cloudhub2Deployment>
 </configuration>
 </plugin>
 </plugins>
